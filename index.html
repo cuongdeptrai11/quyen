@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday ❤️</title>
+<style>
+body{
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(120deg,#ff9a9e,#fad0c4);
+  min-height:100vh;      /* đổi height -> min-height */
+  overflow-x:hidden;     /* bỏ overflow:hidden */
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:white;
+}
+.card{
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  padding:35px;
+  border-radius:25px;
+  box-shadow:0 0 30px rgba(0,0,0,0.2);
+  width:380px;
+}
+
+h1{ margin:0; font-size:36px; }
+
+.slideshow{
+  margin-top:15px;
+  height:220px;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.slideshow img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:none;
+}
+
+button{
+  margin-top:15px;
+  padding:12px 25px;
+  border:none;
+  border-radius:30px;
+  background:#ff4d6d;
+  color:white;
+  font-size:17px;
+  cursor:pointer;
+}
+
+#message{
+  margin-top:20px;
+  display:none;
+  font-size:18px;
+}
+
+.heart{
+  position:absolute;
+  color:#ff4d6d;
+  animation: float 6s linear infinite;
+}
+@keyframes float{
+  0%{ transform: translateY(100vh); opacity:1;}
+  100%{ transform: translateY(-10vh); opacity:0;}
+}
+</style>
+</head>
+<body>
+
+<!-- nhạc nền (có thể xoá nếu không dùng) -->
+<audio id="bgMusic" loop>
+  <source src="Nơi Này Có Anh.mp3" type="audio/mpeg">
+</audio>
+<div class="card">
+  <h1>🎂 Happy Birthday 🎂</h1>
+  <h3>Bé yêu của anh ❤️</h3>
+
+  <div class="slideshow">
+    <img src="hh.jpg">
+  </div>
+
+  <button onclick="showMessage()">Bấm vào đây 💌</button>
+  <button onclick="playMusic()">Bật nhạc 🎵</button>
+  <div id="message"></div>
+</div>
+
+<script>
+const text = "Anh biết đôi khi anh im lặng nhiều quá.\
+Có những lúc em buồn mà anh lại không nói gì, không biết phải an ủi em thế nào cho đúng. Anh biết điều đó làm em cảm thấy cô đơn, và anh thật sự xin lỗi vì điều đó.\
+\
+Không phải vì anh không quan tâm, cũng không phải vì anh không muốn ở bên em. Chỉ là đôi khi anh không giỏi nói ra cảm xúc của mình. Anh sợ nói sai, sợ làm mọi thứ tệ hơn, nên anh chọn im lặng… nhưng anh nhận ra sự im lặng đó lại làm em buồn nhiều hơn.\
+\
+Anh muốn em biết rằng em rất quan trọng với anh. Sự xuất hiện của em đã làm cuộc sống anh vui hơn, ý nghĩa hơn rất nhiều. Anh không hứa sẽ trở thành người hoàn hảo, nhưng anh hứa sẽ cố gắng học cách lắng nghe em nhiều hơn, quan tâm em nhiều hơn và ở bên em theo cách mà em cần.\
+\
+Cảm ơn em vì đã kiên nhẫn với anh, vì đã ở lại, vì đã yêu anh.\
+\
+Chúc em tuổi mới thật nhiều niềm vui, luôn xinh đẹp, luôn hạnh phúc.\
+Và nếu em cho phép, anh muốn được ở bên em thêm thật nhiều sinh nhật nữa.\
+\
+Anh yêu em ❤️";
+let i=0;
+function showMessage(){
+  document.getElementById("message").style.display="block";
+  typeWriter();
+}
+
+function typeWriter(){
+  if(i < text.length){
+    document.getElementById("message").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeWriter,40);
+  }
+}
+
+/* slideshow ảnh */
+let slideIndex=0;
+const slides=document.querySelectorAll(".slideshow img");
+function showSlides(){
+  slides.forEach(s=>s.style.display="none");
+  slideIndex++;
+  if(slideIndex>slides.length) slideIndex=1;
+  slides[slideIndex-1].style.display="block";
+  setTimeout(showSlides,2500);
+}
+showSlides();
+
+/* trái tim bay */
+setInterval(()=>{
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="❤";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=Math.random()*20+10+"px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+},300);
+</script>
+<script>
+function playMusic(){
+  const music = document.getElementById("bgMusic");
+  music.play();
+}
+</script>
+</body>
+</html>
